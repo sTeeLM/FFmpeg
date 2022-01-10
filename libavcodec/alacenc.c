@@ -511,9 +511,10 @@ static av_cold int alac_encode_init(AVCodecContext *avctx)
     avctx->frame_size = s->frame_size = DEFAULT_FRAME_SIZE;
 
     if (avctx->sample_fmt == AV_SAMPLE_FMT_S32P) {
-        if (avctx->bits_per_raw_sample != 24)
+        if (avctx->bits_per_raw_sample != 24 && avctx->bits_per_raw_sample != 20) {
             av_log(avctx, AV_LOG_WARNING, "encoding as 24 bits-per-sample\n");
-        avctx->bits_per_raw_sample = 24;
+            avctx->bits_per_raw_sample = 24;
+        }
     } else {
         avctx->bits_per_raw_sample = 16;
         s->extra_bits              = 0;
